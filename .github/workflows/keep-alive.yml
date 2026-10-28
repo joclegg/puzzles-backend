@@ -17,6 +17,6 @@ jobs:
           SUPABASE_URL: https://nrlmaucpuesfmvqhtupe.supabase.co
           SUPABASE_KEY: sb_publishable_gQgbll0ElIbV41OtkvuXlQ_yUegn2hH
         run: |
-          curl --fail --silent --show-error \
-            "$SUPABASE_URL/rest/v1/saved_games?select=id&limit=1" \
+          curl --fail --silent --show-error -X POST \
+            "$SUPABASE_URL/rest/v1/rpc/keep_alive" \
             -H "apikey: $SUPABASE_KEY"
