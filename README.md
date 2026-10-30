@@ -7,4 +7,4 @@ Supabase backend that syncs scores and history for [puzzles-web](https://github.
 - `game_settings`: one row per user per game.
 - Row level security limits every row to its owner. Sign-in is Google only.
 - Conflicts resolve last-write-wins on `updated_at`. A trigger drops any update older than the stored row, so a device that was offline can't overwrite newer data, and sets `synced_at` to the server's time on every write. Clients pull rows with `synced_at` after their last pull, a page at a time. Deletes are soft (`deleted = true`) so they sync too.
-- `keep_alive()`: a no-op function anyone may call. The `Keep alive` workflow calls it every three days, because the free plan pauses a project after a week without activity. GitHub turns scheduled workflows off after 60 days without commits, so re-enable it in the Actions tab if that happens.
+- `keep_alive()`: a no-op function anyone may call. The `puzzles-keep-alive` Cloudflare Worker in [joclegg-infra](https://github.com/joclegg/joclegg-infra) (`cloudflare/keep_alive.tf`) calls it every day, because the free plan pauses a project after a week without activity.
