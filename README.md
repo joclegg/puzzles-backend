@@ -25,7 +25,7 @@ With the Supabase CLI and Docker:
 ```sh
 supabase db start                          # local database with every migration applied
 supabase db lint --local --fail-on error   # lint, as CI does
-supabase migration new <name>              # add a migration
+supabase db schema declarative sync --name <name>  # generate a migration from supabase/schemas/
 ```
 
 Every merge to `main` pushes new migrations to the live project through the `Deploy` workflow. The `SUPABASE_ACCESS_TOKEN` it uses is managed in joclegg-infra.
