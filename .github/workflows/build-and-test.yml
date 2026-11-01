@@ -23,3 +23,11 @@ jobs:
           version: 2.122.0
       - run: supabase db start
       - run: supabase db lint --local --fail-on error
+      - name: Check migrations match supabase/schemas
+        run: |
+          supabase db schema declarative sync --no-apply --name drift_check
+          if [ -n "$(git status --porcelain supabase/migrations)" ]; then
+            echo "::error::supabase/schemas and supabase/migrations differ. Run 'supabase db schema declarative sync --name <change>' and commit the migration."
+            git status --porcelain supabase/migrations
+            exit 1
+          fi
