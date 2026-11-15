@@ -38,6 +38,6 @@ The Supabase backend that syncs saved games and settings for the Android, iOS an
 - MUST move `updated_at` forward when a migration changes existing rows, or clients ignore the change.
 - MUST keep conflicts last-write-wins on `updated_at`, with `synced_at` set by the server on every write.
 - MUST keep every change compatible with the released apps, which read and write these tables directly.
-- MUST add a new game's id to the `known_game` checks before any app syncs it.
+- MUST NOT restrict `game` to a list of ids: any game id is accepted, so adding a game needs no backend change.
 - MUST NOT remove `keep_alive()`: a daily job calls it so the free plan doesn't pause the project.
 - MUST NOT commit secrets.
