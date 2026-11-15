@@ -8,7 +8,7 @@ The whole backend is a database schema. The apps talk to the tables directly thr
 
 - `saved_games`: one row per game played, keyed by user, game and a client-made UUID. `data` holds the client's save as JSON.
 - `game_settings`: one row per user per game.
-- `game` must be one of the eight games' ids.
+- `game` is the app's id for the game (`sudoku`, `crossword`, ...). Any id is accepted, so a new game needs no backend change.
 - Conflicts resolve last-write-wins on `updated_at`. A trigger drops any update older than the stored row, so a device that was offline can't overwrite newer data, and sets `synced_at` to the server's time on every write.
 - Clients pull rows whose `synced_at` is after their last pull, a page at a time.
 - Deletes are soft (`deleted = true`), so they sync too.

@@ -13,12 +13,6 @@ create table public.saved_games (
   primary key (user_id, game, id)
 );
 
--- not valid: existing rows aren't checked, new and updated ones are.
-alter table public.saved_games
-  add constraint saved_games_known_game check (game in (
-    'fiveLetters', 'kakuro', 'sightlines', 'slideOut',
-    'solitaire', 'sudoku', 'twoTone', 'wordWheel'
-  )) not valid;
 
 create index saved_games_user_synced on public.saved_games (user_id, synced_at);
 
@@ -31,12 +25,6 @@ create table public.game_settings (
   primary key (user_id, game)
 );
 
--- not valid: existing rows aren't checked, new and updated ones are.
-alter table public.game_settings
-  add constraint game_settings_known_game check (game in (
-    'fiveLetters', 'kakuro', 'sightlines', 'slideOut',
-    'solitaire', 'sudoku', 'twoTone', 'wordWheel'
-  )) not valid;
 
 create index game_settings_user_synced on public.game_settings (user_id, synced_at);
 
